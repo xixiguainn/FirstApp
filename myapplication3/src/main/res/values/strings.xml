@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">My Application3</string>
     <string name="button">Button</string>
+    <string name="str1">result</string>
+    <string name="str">put number</string>
 </resources>
