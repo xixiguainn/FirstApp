@@ -3,4 +3,10 @@
     <string name="button">Button</string>
     <string name="str1">result</string>
     <string name="str">put number</string>
+    <string name="Main2str1">reset</string>
+    <string name="Main2str2">TeamA</string>
+    <string name="Mainstr3">0</string>
+    <string name="Main2str4">+1points</string>
+    <string name="Main2str5">+2points</string>
+    <string name="Main2str6">+3points</string>
 </resources>
