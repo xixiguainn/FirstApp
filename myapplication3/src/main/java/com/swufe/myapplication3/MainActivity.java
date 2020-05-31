@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     }
 public void btnClick(View btn){
 
-String str=inp.getText().toString();//强制转化成string型。i
+String str=inp.getText().toString();//强制转化成string型。i1
     int number=Integer.parseInt( str);
     out.setText("结果为"+(number*9/5+32)+"°F");
 
