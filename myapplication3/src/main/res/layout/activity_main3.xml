@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Main3Activity">
+
+    <EditText
+        android:id="@+id/Put"
+        android:layout_width="match_parent"
+        android:layout_height="79dp"
+        android:ems="10"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:inputType="number"
+        android:hint="@string/Main3str1"
+        tools:ignore="LabelFor"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:id="@+id/ShowResult"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="20dp"
+        android:layout_height="55dp"
+        android:gravity="center"
+        android:text="@string/Mainstr3" />
+
+    <Button
+        android:id="@+id/dollar"
+        android:layout_width="match_parent"
+        android:layout_height="74dp"
+        android:layout_marginBottom="10dp"
+        android:onClick="onClick"
+        android:text="@string/str3" />
+
+    <Button
+        android:id="@+id/europe"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginBottom="10dp"
+        android:onClick="onClick"
+        android:text="@string/str4" />
+
+    <Button
+        android:id="@+id/hanguo"
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:onClick="onClick"
+        android:text="@string/str5" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:onClick="openOne"
+        android:text="@string/str7" />
+
+</LinearLayout>

@@ -9,4 +9,10 @@
     <string name="Main2str4">+1points</string>
     <string name="Main2str5">+2points</string>
     <string name="Main2str6">+3points</string>
+    <string name="Main3str1">Putnumber</string>
+    <string name="str3">dollar</string>
+    <string name="str4">europe</string>
+    <string name="str5">korea</string>
+    <string name="str6">putback</string>
+    <string name="str7">go</string>
 </resources>
