@@ -1,5 +1,6 @@
 package com.swufe.myapplication3;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -55,15 +56,29 @@ else if (btn.getId()==R.id.europe){
 }
     }
 
-//    public void openOne(View btn){
-//        Intent config = new Intent(this,Main4Activity.class);//和最后一句组成一个跳转功能，从当前页面到目的界面
-//       config.putExtra("dollar_key",dollarRate);
-//        config.putExtra("europe_key",europeRate);
-//        config.putExtra("korea_key",koreaRate); //将值传过去
-//
-////startActivity(config);
-//  startActivityForResult(config,1);//请求代码
-//    }
+    public void openOne(View btn){
+        Intent config = new Intent(this,Main4Activity.class);//和最后一句组成一个跳转功能，从当前页面到目的界面
+       config.putExtra("dollar_key",dollarRate);
+        config.putExtra("europe_key",europeRate);
+        config.putExtra("korea_key",koreaRate); //将值传过去
+
+//startActivity(config);
+  startActivityForResult(config,1);//请求代码
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {//传过去的请求代码是几，回传的代码是几，然后返回相应值
+        if(requestCode==1&&resultCode==2){
+            Bundle bundle =data.getExtras();
+            dollarRate =bundle.getFloat("key_dollar",0.1f);
+            europeRate =bundle.getFloat("key_europe",0.1f);
+            koreaRate =bundle.getFloat("key_korea",0.1f);
+
+        }
 
 
+
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

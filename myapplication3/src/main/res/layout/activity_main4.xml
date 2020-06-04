@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Main4Activity" >
+
+    <EditText
+        android:id="@+id/Cgdollar"
+        android:layout_width="match_parent"
+        android:layout_height="77dp"
+        android:ems="10"
+        android:hint="@string/str3"
+        tools:ignore="LabelFor"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/Cgeurope"
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:ems="10"
+        android:hint="@string/str4"
+        android:inputType="textPersonName"
+        tools:ignore="LabelFor"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/Cgkorea"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:ems="10"
+        android:hint="@string/str5"
+        android:inputType="textPersonName"
+        tools:ignore="LabelFor"
+        android:importantForAutofill="no" />
+
+    <Button
+        android:id="@+id/putback"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:onClick="save"
+        android:text="@string/str6" />
+</LinearLayout>
