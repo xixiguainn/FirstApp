@@ -16,14 +16,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class Main3Activity extends AppCompatActivity implements Runnable{//implements Runnable 是开启多线程要实现的接口
     private final String TAG="Rate";
@@ -64,7 +65,12 @@ public class Main3Activity extends AppCompatActivity implements Runnable{//imple
             public void handleMessage(Message msg){
                if(msg.what==5){//如果what==5说明消息来源于run中的msg对象
 
-                   String str= (String) msg.obj;
+                  Bundle bd1= (Bundle) msg.obj;
+                   dollarRate=bd1.getFloat("dollar-rate",0f);
+                   europeRate=bd1.getFloat("europe-rate",0f);
+                   koreaRate=bd1.getFloat("korea-rate",0f);     //把bundle里面的值传回保存到sp里
+
+
                }
 
                 super.handleMessage(msg);
@@ -132,7 +138,6 @@ else if (btn.getId()==R.id.europe){
 
 
 
-
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -140,39 +145,62 @@ else if (btn.getId()==R.id.europe){
     @Override
     public void run(){//子线程中运行的方法
 
-    //获取message对象，用于返回线程
-       Message msg =handler.obtainMessage(5);//整数和之前传递数据一样，用于比对，和取件收件要写收件人取件人一样
-//用于传输数据（看数据类型选择方法）
-        msg.obj="hello form run()";
-        handler.sendMessage(msg);//将msg对象中储存的数据传到main函数中去处理
+        Bundle bundle=new Bundle();//用来储存汇率
+
 
 
         //获取网络数据
-        URL url= null;
+        Document doc = null;
         try {
-            url = new URL("http://www.usd-cny.com/icbc.htm");
+            doc = Jsoup.connect("http://www.usd-cny.com/bankofchina.htm").get();
+            Log.i(TAG,"run:"+doc.title());//这里的title（）方法就是可以去获取网页里的标题
+Elements tables =doc.getElementsByTag("table");//通过什么标签来返回数据Tag标签的意思
+//            int i=1;
+//            for(Element table:tables){
+//               Log.i(TAG,"run:table["+i+"]"+table);
+//                i++;          //循环去找汇率是第几个table 每行都会用run显示一次，加i作为计数
+//          }
+            Element table6=tables.get(0);//第一个就是第0个可能是数组？
+            //获取td中的数据
+            Elements tds=table6.getElementsByTag("td");
+            for(int i=0;i<tds.size();i+=6){  //该网页每一行有6个数据，都是td,现在要把每行第一个和第五个挑出来
+                Element td1=tds.get(i);       //用循环去挑
+                Element td2=tds.get(i+5);
 
-            HttpURLConnection http= (HttpURLConnection) url.openConnection();//相当于打开链接后按回车 1.有可能出现网络链接问题之类的要写异常处理
-            InputStream in=http.getInputStream();//java中传输数据用输入输出流 这是输入流 因为获取的是网页的源代码，都是java代码
+                Log.i(TAG,"run:text="+td1.text()+"run:val="+td2.text());
+String str1=td1.text();
+String val=td2.text();
 
+      if("美元".equals(str1)){
+    bundle.putFloat("dollar-rate",100f/Float.parseFloat(val));
+}
+else if ("欧元".equals(str1)){
+    bundle.putFloat("europe-rate",100f/Float.parseFloat(val));
 
+}
+else if("韩元".equals(str1)){
+    bundle.putFloat("korea-rate",100f/Float.parseFloat(val));
+}
 
-            String html=inputStream25String(in);//调用inputStream25String()方法将输入流转字符串
+            }
 
-            Log.i(TAG,"run:htlm="+html);
-
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();//有可能出现网页打不开之类的需要捕获异常
-            Log.i(TAG,"run:htlm="+"2222");
+//            for(Element td:tds){
+//                Log.i(TAG,"run:td="+td);//显示所有td
+//                Log.i(TAG,"run:text="+td.text());//td.text()显示td中的text内容
+//                Log.i(TAG,"run:html="+td.html());//超链接，图片
+//
+//
+//            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-     catch (IOException e) {                        //2.还有类型不匹配需要转换前面是http 后面是url
-         e.printStackTrace();
-         Log.i(TAG,""+e);
 
-        }
-
+        //获取message对象，用于返回线程
+        Message msg =handler.obtainMessage(5);//整数和之前传递数据一样，用于比对，和取件收件要写收件人取件人一样
+//用于传输数据（看数据类型选择方法）
+        msg.obj=bundle;
+        handler.sendMessage(msg);//将msg对象中储存的数据传到main函数中去处理
 
 
     }
